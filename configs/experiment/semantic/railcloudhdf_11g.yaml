@@ -27,17 +27,17 @@ defaults:
 # this allows you to overwrite only specified parameters
 
 datamodule:
-  pc_tiling: 5  # split each cloud into xy_tiling²=25 tiles, based on a regular XY grid. Reduces preprocessing- and inference-time GPU memory
-  sample_graph_k: 2  # 2 spherical samples in each batch instead of 4. Reduces train-time GPU memory
+  #pc_tiling: 3  # split each cloud into xy_tiling²=25 tiles, based on a regular XY grid. Reduces preprocessing- and inference-time GPU memory
+  sample_graph_k: 4  # 2 spherical samples in each batch instead of 4. Reduces train-time GPU memory
 
-callbacks:
-  gradient_accumulator:
-    scheduling:
-      0:
-        2  # accumulate gradient every 2 batches, to make up for reduced batch size
+# callbacks:
+#   gradient_accumulator:
+#     scheduling:
+#       0:
+#         2  # accumulate gradient every 2 batches, to make up for reduced batch size
 
 trainer:
-  max_epochs: 288  # to keep same nb of steps: 25/9x more tiles, 2-step gradient accumulation -> epochs * 2 * 9 / 25
+  max_epochs: 300  # to keep same nb of steps: 25/9x more tiles, 2-step gradient accumulation -> epochs * 2 * 9 / 25
 
 model:
   optimizer:

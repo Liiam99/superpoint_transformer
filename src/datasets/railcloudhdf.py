@@ -12,7 +12,7 @@ from src.datasets.railcloudhdf_config import *
 ########################################################################
 
 def read_railcloudhdf_tile(
-        file_path, xyz=True, intensity=True, semantic=True):
+        file_path, xyz=True, rgb=True, intensity=True, semantic=True):
     """PLACEHOLDER."""
     data = Data()
 
@@ -21,8 +21,9 @@ def read_railcloudhdf_tile(
 
     if xyz:
         pos = torch.tensor([las.x, las.y, las.z], dtype=torch.float).T
-        data.pos = pos - las.header.offset
-        data.pos_offset = las.header.offset
+        offset = torch.FloatTensor(las.header.offset)
+        data.pos = pos - offset
+        data.pos_offset = offset
 
     if intensity:
         intensity = np.array(las.intensity)
@@ -78,7 +79,7 @@ class RailCloudHdF(BaseDataset):
         """The unique file names of each tile."""
         return TILES
 
-    def download_dataset(self):
+    def download(self):
         pass
 
     def id_to_relative_raw_path(self, id):
@@ -91,4 +92,4 @@ class RailCloudHdF(BaseDataset):
     def read_single_raw_cloud(self, raw_cloud_path):
         """Returns one tile as a PyGData object with pos, intensity and label attrs."""
         return read_railcloudhdf_tile(
-            raw_cloud_path, xyz=True, intensity=True, semantic=True)
+            raw_cloud_path, xyz=True, rgb=True, intensity=True, semantic=True)

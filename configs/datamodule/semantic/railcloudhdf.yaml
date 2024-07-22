@@ -6,8 +6,6 @@ _target_: src.datamodules.railcloudhdf.RailCloudHdFDataModule
 
 num_classes: 8
 
-pc_tiling: 3
-
 # Features that will be computed, saved, loaded for points and segments
 
 # point features used for the partition
