@@ -1,13 +1,12 @@
 # @package datamodule
 defaults:
-  - /datamodule/semantic/_features.yaml
+  - /datamodule/semantic/default.yaml
 
 _target_: src.datamodules.railcloudhdf.RailCloudHdFDataModule
 
 num_classes: 8
-trainval: True
 
-xy_tiling: 3
+pc_tiling: 3
 
 # Features that will be computed, saved, loaded for points and segments
 

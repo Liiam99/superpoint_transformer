@@ -1,5 +1,6 @@
 import laspy
 import numpy as np
+import os.path as osp
 import torch
 from src.data import Data
 from src.datasets import BaseDataset
@@ -11,12 +12,12 @@ from src.datasets.railcloudhdf_config import *
 ########################################################################
 
 def read_railcloudhdf_tile(
-        file_path, xyz=True, intensity=True, semantic=True, instance=True):
+        file_path, xyz=True, intensity=True, semantic=True):
     """PLACEHOLDER."""
     data = Data()
 
     # Extract coordinates [x, y, z], strength [0.->1.] & label [uint]
-    las = laspy.read(file_path)
+    las = laspy.read(f"{file_path}.laz")
 
     if xyz:
         pos = torch.tensor([las.x, las.y, las.z], dtype=torch.float).T
@@ -44,6 +45,13 @@ class RailCloudHdF(BaseDataset):
 
     PLACEHOLDER.
     """
+    @property
+    def raw_dir(self):
+        return self.root
+
+    @property
+    def data_subdir_name(self):
+        return self.__class__.__name__.lower() + f"/{self.stage}"
 
     @property
     def class_names(self):
@@ -67,13 +75,20 @@ class RailCloudHdF(BaseDataset):
 
     @property
     def all_base_cloud_ids(self):
-        """PLACEHOLDER."""
+        """The unique file names of each tile."""
         return TILES
 
     def download_dataset(self):
         pass
 
+    def id_to_relative_raw_path(self, id):
+        """Given a cloud id as stored in `self.cloud_ids`, return the
+        path (relative to `self.raw_dir`) of the corresponding raw
+        cloud.
+        """
+        return self.id_to_base_id(id) + f"/{self.stage}/.laz"
+
     def read_single_raw_cloud(self, raw_cloud_path):
-        """PLACEHOLDER."""
+        """Returns one tile as a PyGData object with pos, intensity and label attrs."""
         return read_railcloudhdf_tile(
-            raw_cloud_path, intensity=True, semantic=True, instance=False)
+            raw_cloud_path, xyz=True, intensity=True, semantic=True)

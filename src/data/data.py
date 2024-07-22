@@ -131,7 +131,7 @@ class Data(PyGData):
         `edge_attr`.
         """
         return [
-            k for k in self.keys
+            k for k in self.keys()
             if k.startswith('edge_') and k not in ['edge_index', 'edge_attr']]
 
     def raise_if_edge_keys(self):
@@ -147,7 +147,7 @@ class Data(PyGData):
     @property
     def v_edge_keys(self):
         """All keys starting with `v_edge_`."""
-        return [k for k in self.keys if k.startswith('v_edge_')]
+        return [k for k in self.keys() if k.startswith('v_edge_')]
 
     @property
     def num_edges(self):
@@ -536,7 +536,7 @@ class Data(PyGData):
             if src.is_debug_enabled():
                 print(f'{self.__class__.__name__}.__eq__: classes differ')
             return False
-        if sorted(self.keys) != sorted(other.keys):
+        if sorted(self.keys()) != sorted(other.keys):
             if src.is_debug_enabled():
                 print(f'{self.__class__.__name__}.__eq__: keys differ')
             return False

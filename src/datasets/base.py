@@ -124,25 +124,25 @@ class BaseDataset(InMemoryDataset):
         the object before modifying it. Besides, the `transform` are
         pre-applied to the in_memory data
     point_save_keys: list[str], optional
-        List of point (ie level-0) attribute keys to save to disk at 
-        the end of preprocessing. Leaving to `None` will save all 
+        List of point (ie level-0) attribute keys to save to disk at
+        the end of preprocessing. Leaving to `None` will save all
         attributes by default
     point_no_save_keys: list[str], optional
         List of point (ie level-0) attribute keys to NOT save to disk at
         the end of preprocessing
     point_load_keys: list[str], optional
-        List of point (ie level-0) attribute keys to load when reading 
+        List of point (ie level-0) attribute keys to load when reading
         data from disk
     segment_save_keys: list[str], optional
-        List of segment (ie level-1+) attribute keys to save to disk 
-        at the end of preprocessing. Leaving to `None` will save all 
+        List of segment (ie level-1+) attribute keys to save to disk
+        at the end of preprocessing. Leaving to `None` will save all
         attributes by default
     segment_no_save_keys: list[str], optional
-        List of segment (ie level-1+) attribute keys to NOT save to disk 
+        List of segment (ie level-1+) attribute keys to NOT save to disk
         at the end of preprocessing
     segment_load_keys: list[str], optional
-        List of segment (ie level-1+) attribute keys to load when 
-        reading data from disk 
+        List of segment (ie level-1+) attribute keys to load when
+        reading data from disk
     """
 
     def __init__(
@@ -362,7 +362,7 @@ class BaseDataset(InMemoryDataset):
         or 'test'
         """
         return self._stage
-    
+
     @property
     def save_y_to_csr(self):
         return self._save_y_to_csr
@@ -418,7 +418,7 @@ class BaseDataset(InMemoryDataset):
     @property
     def segment_load_keys(self):
         return self._segment_load_keys
-        
+
     @property
     def all_base_cloud_ids(self):
         """Dictionary holding lists of clouds ids, for each
@@ -957,7 +957,7 @@ class BaseDataset(InMemoryDataset):
             assert label in self.class_names, \
                 f"Label must be within {self.class_names}]"
             label = self.class_names.index(label)
-        
+
         assert label >= 0 and label <= self.num_classes, \
             f"Label must be within [0, {self.num_classes + 1}]"
 

@@ -184,9 +184,9 @@ def _group_data(
     The `_VOTING_KEYS=['y', 'super_index', 'is_val']` keys are grouped
     by their majority label. The `_INSTANCE_KEYS=['obj']` keys are
     grouped into an `InstanceData`, which stores all instance/panoptic
-    overlap data values in CSR format. The `_CLUSTER_KEYS=['point_id']` 
-    keys are grouped into a `Cluster` object, which stores indices of 
-    child elements for parent clusters in CSR format. The 
+    overlap data values in CSR format. The `_CLUSTER_KEYS=['point_id']`
+    keys are grouped into a `Cluster` object, which stores indices of
+    child elements for parent clusters in CSR format. The
     `_LAST_KEYS = ['batch', SaveNodeIndex.DEFAULT_KEY]` keys are by
     default grouped following `mode='last'`.
 
@@ -226,7 +226,7 @@ def _group_data(
     # which store all input information in CSR format
     _INSTANCE_KEYS = ['obj']
 
-    # Keys for which voxel aggregation will use a Cluster object, which 
+    # Keys for which voxel aggregation will use a Cluster object, which
     # store all input information in CSR format
     _CLUSTER_KEYS = ['sub']
 
@@ -274,8 +274,8 @@ def _group_data(
                     else torch.zeros_like(item)
                 data[key] = InstanceData(cluster, item, count, y, dense=True)
             continue
-        
-        # For point indices to be grouped in Cluster. This allows 
+
+        # For point indices to be grouped in Cluster. This allows
         # backtracking full-resolution point indices to the voxels
         if key in _CLUSTER_KEYS:
             if (isinstance(item, torch.Tensor) and item.dim() == 1
@@ -860,7 +860,7 @@ class SampleRadiusSubgraphs(BaseSampleSubgraphs):
         self.r = r
 
     def _sample_subgraphs(self, nag, i_level, idx):
-        # Skip if r<=0. This may be useful to turn this transform into 
+        # Skip if r<=0. This may be useful to turn this transform into
         # an Identity, if need be
         if self.r <= 0:
             return nag
