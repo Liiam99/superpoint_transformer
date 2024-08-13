@@ -17,7 +17,7 @@ def read_railcloudhdf_tile(
     data = Data()
 
     # Extract coordinates [x, y, z], strength [0.->1.] & label [uint]
-    las = laspy.read(f"{file_path}.laz")
+    las = laspy.read(file_path)
 
     if xyz:
         pos = torch.tensor([las.x, las.y, las.z], dtype=torch.float).T
@@ -87,7 +87,7 @@ class RailCloudHdF(BaseDataset):
         path (relative to `self.raw_dir`) of the corresponding raw
         cloud.
         """
-        return self.id_to_base_id(id) + f"/{self.stage}/.laz"
+        return f"{self.id_to_base_id(id)}.laz"
 
     def read_single_raw_cloud(self, raw_cloud_path):
         """Returns one tile as a PyGData object with pos, intensity and label attrs."""
