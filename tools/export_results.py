@@ -1,8 +1,3 @@
-import os
-import sys
-file_path = os.path.dirname("./")  # for .ipynb notebook
-sys.path.append(file_path)
-
 import argparse
 import hydra
 import laspy
@@ -26,8 +21,8 @@ if __name__ == "__main__":
 
     # Parse the configs using hydra
     cfg = init_config(overrides=[
-        "experiment=semantic/railcloudhdf_11g",
-        "ckpt_path=./logs/train/runs/2024-07-24_15-43-16/checkpoints/epoch_149.ckpt",
+        "experiment=semantic/internrail",
+        "ckpt_path=./logs/train/runs/2024-08-16_16-59-59/checkpoints/epoch_259.ckpt",
         "datamodule.load_full_res_idx=True"
     ])
 
